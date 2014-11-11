@@ -15,7 +15,7 @@
 	5. drobné zmeny v texte
 
   
-* Dominik uprví use-case diagram.
+* Dominik upraví use-case diagram.
 
 * Matej doplní vzťah do entitno-relačného diagramu.
 
