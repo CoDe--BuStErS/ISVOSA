@@ -50,4 +50,4 @@
 * Matej vytvoril dátový podrobnejší entitno-relačný diagram.
 
 > CoDe--BuStErS
-> 2.11.2014
+> 11.11.2014

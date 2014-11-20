@@ -53,4 +53,4 @@
 * Michal popísal užívateľské rozhranie nášho systému v Konceptuálnej analýze.
 
 > CoDe--BuStErS
-> 2.11.2014
+> 7.11.2014
