@@ -1,0 +1,141 @@
+Comparing files C:\USERS\DAVE\DESKTOP\TIS\AGIL\agilent_SCPI.py and C:\USERS\DAVE\DESKTOP\TIS\AGILGNG\AGILENT_SCPI.PY
+***** C:\USERS\DAVE\DESKTOP\TIS\AGIL\agilent_SCPI.py
+
+class agilent_SCPI :
+        
+    host_ip = None
+    scpi_port = None
+    connection = None
+
+    def __init__(self) :
+        self.host_ip = '192.168.1.2'
+        self.scpi_port = 5025
+        
+        self.connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.connection.connect((self.host_ip, self.scpi_port))
+        #self.connection.setblocking(0)
+        #self.connection.settimeout(0.3)
+
+***** C:\USERS\DAVE\DESKTOP\TIS\AGILGNG\AGILENT_SCPI.PY
+
+class AgilentSCPI:
+        
+    _host_ip = None
+    _scpi_port = None
+    _connection = None
+
+    def __init__(self):
+        self._host_ip = '192.168.1.102'#!!!!!!!!!!!!!
+        self._scpi_port = 5025
+        
+        self._connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self._connection.connect((self._host_ip, self._scpi_port))
+        #self._connection.setblocking(0)
+        #self._connection.settimeout(0.3)
+
+*****
+
+***** C:\USERS\DAVE\DESKTOP\TIS\AGIL\agilent_SCPI.py
+
+    def sendCmd(self, command) :
+        #print 'cmd> ' + command
+        self.connection.sendall(command + '\n')
+
+***** C:\USERS\DAVE\DESKTOP\TIS\AGILGNG\AGILENT_SCPI.PY
+
+    def send_cmd(self, command):
+        #print 'cmd> ' + command
+        self._connection.sendall(command + '\n')
+
+*****
+
+***** C:\USERS\DAVE\DESKTOP\TIS\AGIL\agilent_SCPI.py
+
+    def readData(self) :
+        data = ''
+***** C:\USERS\DAVE\DESKTOP\TIS\AGILGNG\AGILENT_SCPI.PY
+
+    def read_data(self):
+        data = ''
+*****
+
+***** C:\USERS\DAVE\DESKTOP\TIS\AGIL\agilent_SCPI.py
+        while 1:
+            buf = self.connection.recv(1024)
+            data += buf
+            if buf[-1] == '\n'  :
+                break
+***** C:\USERS\DAVE\DESKTOP\TIS\AGILGNG\AGILENT_SCPI.PY
+        while 1:
+            buf = self._connection.recv(1024)
+            #print 'buf> "' + buf + '"'
+            data += buf
+            if len(buf) > 1:
+                if buf[-1] == '\n':
+                    break
+            else:
+                break
+*****
+
+***** C:\USERS\DAVE\DESKTOP\TIS\AGIL\agilent_SCPI.py
+
+    def readErr(self) :
+        self.connection.sendall('syst:err?\n')
+        return self.readData()
+
+***** C:\USERS\DAVE\DESKTOP\TIS\AGILGNG\AGILENT_SCPI.PY
+
+    def read_err(self):
+        self.send_cmd(':syst:err?')#!!!!!!!!!!!!!!!!!!!!!
+        return self.read_data()
+
+*****
+
+***** C:\USERS\DAVE\DESKTOP\TIS\AGIL\agilent_SCPI.py
+
+    def __del__(self) :
+        self.connection.close()
+
+***** C:\USERS\DAVE\DESKTOP\TIS\AGILGNG\AGILENT_SCPI.PY
+
+    def __del__(self):
+        self._connection.close()
+
+*****
+
+***** C:\USERS\DAVE\DESKTOP\TIS\AGIL\agilent_SCPI.py
+
+###############################################################################
+
+
+***** C:\USERS\DAVE\DESKTOP\TIS\AGILGNG\AGILENT_SCPI.PY
+
+
+*****
+
+***** C:\USERS\DAVE\DESKTOP\TIS\AGIL\agilent_SCPI.py
+
+    a = agilent_SCPI()
+    a.sendCmd('sens1:swe:poin 1601; *wai')
+    a.sendCmd('sens1:swe:poin?')
+    print a.readData()
+    del a
+***** C:\USERS\DAVE\DESKTOP\TIS\AGILGNG\AGILENT_SCPI.PY
+
+    a = AgilentSCPI()
+    
+    a.send_cmd(':syst:pres')#!!!!!!!!!!!!!!!
+    
+    a.send_cmd('*idn?')#!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    print a.read_data()
+    
+    a.send_cmd(':sens1:swe:poin 1601; *wai')
+    
+    a.send_cmd(':sens1:swe:poin?')
+    print a.read_data()
+    
+    print a.read_err()
+    
+    del a
+*****
+

@@ -1,0 +1,117 @@
+Comparing files C:\USERS\DAVE\DESKTOP\TIS\AGIL\rlcparams.py and C:\USERS\DAVE\DESKTOP\TIS\AGILGNG\RLCPARAMS.PY
+***** C:\USERS\DAVE\DESKTOP\TIS\AGIL\rlcparams.py
+import math, time, string
+#import Numeric
+import numpy
+import Gnuplot
+***** C:\USERS\DAVE\DESKTOP\TIS\AGILGNG\RLCPARAMS.PY
+import math, time, string
+import Numeric
+import Gnuplot
+*****
+
+***** C:\USERS\DAVE\DESKTOP\TIS\AGIL\rlcparams.py
+        self.R1 = 1.0 / maxY
+        
+        # Determine C0
+***** C:\USERS\DAVE\DESKTOP\TIS\AGILGNG\RLCPARAMS.PY
+        self.R1 = 1.0 / maxY
+
+        # Determine C0
+*****
+
+***** C:\USERS\DAVE\DESKTOP\TIS\AGIL\rlcparams.py
+
+        #self.C1 = Numeric.average(C1)
+        self.C1 = numpy.average(C1)
+
+***** C:\USERS\DAVE\DESKTOP\TIS\AGILGNG\RLCPARAMS.PY
+
+        self.C1 = Numeric.average(C1)
+
+*****
+
+***** C:\USERS\DAVE\DESKTOP\TIS\AGIL\rlcparams.py
+        #self.gnuplot.clear()
+        #self.gnuplot('set data style linespoints')
+        self.gnuplot('set style data linespoints')
+        self.gnuplot('set xtics border mirror norotate')
+***** C:\USERS\DAVE\DESKTOP\TIS\AGILGNG\RLCPARAMS.PY
+        #self.gnuplot.clear()
+        self.gnuplot('set data style linespoints')
+        self.gnuplot('set xtics border mirror norotate')
+*****
+
+***** C:\USERS\DAVE\DESKTOP\TIS\AGIL\rlcparams.py
+        self.gnuplot('set title ""')
+        #self.gnuplot('set yrange [300:480]')
+        self.gnuplot.plot(
+***** C:\USERS\DAVE\DESKTOP\TIS\AGILGNG\RLCPARAMS.PY
+        self.gnuplot('set title ""')
+        self.gnuplot.plot(
+*****
+
+***** C:\USERS\DAVE\DESKTOP\TIS\AGIL\rlcparams.py
+        """
+        #self.gnuplot1('set data style linespoints')
+        self.gnuplot1('set style data linespoints')
+        self.gnuplot1('set xtics border mirror norotate')
+***** C:\USERS\DAVE\DESKTOP\TIS\AGILGNG\RLCPARAMS.PY
+        """
+        self.gnuplot1('set data style linespoints')
+        self.gnuplot1('set xtics border mirror norotate')
+*****
+
+***** C:\USERS\DAVE\DESKTOP\TIS\AGIL\rlcparams.py
+        self.gnuplot2('set origin 0,0')
+        #self.gnuplot2('set data style lines')
+        self.gnuplot2('set style data lines')
+        self.gnuplot2('set xtics border mirror norotate')
+***** C:\USERS\DAVE\DESKTOP\TIS\AGILGNG\RLCPARAMS.PY
+        self.gnuplot2('set origin 0,0')
+        self.gnuplot2('set data style lines')
+        self.gnuplot2('set xtics border mirror norotate')
+*****
+
+***** C:\USERS\DAVE\DESKTOP\TIS\AGIL\rlcparams.py
+        self.gnuplot2('set origin 0,0.5')
+        #self.gnuplot('set yrange [300:480]')
+        self.gnuplot2('plot [:] "' + dataFile + '" index 0 using 1:2 axes x1y1 title "fRes", "' + dataFile + '" index 0 using 1
+***** C:\USERS\DAVE\DESKTOP\TIS\AGILGNG\RLCPARAMS.PY
+        self.gnuplot2('set origin 0,0.5')
+        self.gnuplot2('plot [:] "' + dataFile + '" index 0 using 1:2 axes x1y1 title "fRes", "' + dataFile + '" index 0 using 1
+*****
+
+***** C:\USERS\DAVE\DESKTOP\TIS\AGIL\rlcparams.py
+        self.gnuplot2('set origin 0.5, 0')
+        #self.gnuplot2('set data style lines')
+        self.gnuplot2('set style data lines')
+        self.gnuplot2.plot(
+***** C:\USERS\DAVE\DESKTOP\TIS\AGILGNG\RLCPARAMS.PY
+        self.gnuplot2('set origin 0.5, 0')
+        self.gnuplot2('set data style lines')
+        self.gnuplot2.plot(
+*****
+
+***** C:\USERS\DAVE\DESKTOP\TIS\AGIL\rlcparams.py
+        #self.gnuplot.clear()
+        #self.gnuplot('set data style linespoints')
+        self.gnuplot('set style data linespoints')
+        self.gnuplot('set xtics border mirror norotate')
+***** C:\USERS\DAVE\DESKTOP\TIS\AGILGNG\RLCPARAMS.PY
+        #self.gnuplot.clear()
+        self.gnuplot('set data style linespoints')
+        self.gnuplot('set xtics border mirror norotate')
+*****
+
+***** C:\USERS\DAVE\DESKTOP\TIS\AGIL\rlcparams.py
+        self.gnuplot.clear()
+        #self.gnuplot('set data style linespoints')
+        self.gnuplot('set style data linespoints')
+        self.gnuplot('set xtics border mirror norotate')
+***** C:\USERS\DAVE\DESKTOP\TIS\AGILGNG\RLCPARAMS.PY
+        self.gnuplot.clear()
+        self.gnuplot('set data style linespoints')
+        self.gnuplot('set xtics border mirror norotate')
+*****
+

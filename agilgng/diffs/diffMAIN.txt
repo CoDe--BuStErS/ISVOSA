@@ -1,0 +1,118 @@
+Comparing files C:\USERS\DAVE\DESKTOP\TIS\AGIL\main.py and C:\USERS\DAVE\DESKTOP\TIS\AGILGNG\MAIN.PY
+***** C:\USERS\DAVE\DESKTOP\TIS\AGIL\main.py
+
+    a = agilent.agilent()
+    p = rlcparams.RLCparams()
+***** C:\USERS\DAVE\DESKTOP\TIS\AGILGNG\MAIN.PY
+
+    a = agilent.Agilent()
+    p = rlcparams.RLCparams()
+*****
+
+***** C:\USERS\DAVE\DESKTOP\TIS\AGIL\main.py
+    
+    a.setFrequency(center = '8 MHz', span = '3 MHz')
+    a.measure()
+    a.plotData()
+    #a.saveData('x.dat')
+
+***** C:\USERS\DAVE\DESKTOP\TIS\AGILGNG\MAIN.PY
+    
+    a.set_frequency(center = '8000000', span = '500000')#!!!!!!!!!!!!
+    a.measure()
+    a.plot_data()
+    #a.save_data('x.dat')
+    #raw_input('Press enter')
+
+
+*****
+
+***** C:\USERS\DAVE\DESKTOP\TIS\AGIL\main.py
+    maxIndex = a.data['admitance'].index(m)
+    a.setFrequency(center = '%f Hz' % a.data['frequency'][maxIndex])
+
+    a.setFrequency(span = '1 MHz')
+
+***** C:\USERS\DAVE\DESKTOP\TIS\AGILGNG\MAIN.PY
+    maxIndex = a.data['admitance'].index(m)
+    a.set_frequency(center = '%f' % a.data['frequency'][maxIndex])
+
+    #a.set_frequency(span = '1000000')
+    a.set_frequency(span = '2000000')##!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+*****
+
+***** C:\USERS\DAVE\DESKTOP\TIS\AGIL\main.py
+    a.measure()
+    a.plotData()
+    #a.saveData('x.dat')
+
+***** C:\USERS\DAVE\DESKTOP\TIS\AGILGNG\MAIN.PY
+    a.measure()
+    a.plot_data()
+    #a.save_data('x.dat')
+    #raw_input('Press enter')
+
+*****
+
+***** C:\USERS\DAVE\DESKTOP\TIS\AGIL\main.py
+    maxIndex = a.data['admitance'].index(m)
+    a.setFrequency(center = '%f Hz' % a.data['frequency'][maxIndex])
+
+    a.setFrequency(span = '40 KHz')
+    #a.setFrequency(span = '25 KHz')
+    #a.setFrequency(span = '10 KHz')
+
+***** C:\USERS\DAVE\DESKTOP\TIS\AGILGNG\MAIN.PY
+    maxIndex = a.data['admitance'].index(m)
+    a.set_frequency(center = '%f' % a.data['frequency'][maxIndex])
+
+    a.set_frequency(span = '40000')
+
+*****
+
+***** C:\USERS\DAVE\DESKTOP\TIS\AGIL\main.py
+    print 'f\t\tR1\t\tC0\t\t\tC1\t\t\tL1'
+    print 90 * '-'
+
+***** C:\USERS\DAVE\DESKTOP\TIS\AGILGNG\MAIN.PY
+    print 'f\t\tR1\t\tC0\t\t\tC1\t\t\tL1'
+    #print 'f\t\t\tR1\t\t\tC0\t\t\tC1\t\t\tL1'
+    print 100 * '-'
+    #print 120 * '-'
+
+*****
+
+***** C:\USERS\DAVE\DESKTOP\TIS\AGIL\main.py
+        a.measure()
+        #a.plotData() # plot spectrum
+        if saveDataFile:
+            a.saveData(saveDataFile)
+
+***** C:\USERS\DAVE\DESKTOP\TIS\AGILGNG\MAIN.PY
+        a.measure()
+        #a.plot_data() # plot spectrum
+        if saveDataFile:
+            a.save_data(saveDataFile)
+
+*****
+
+***** C:\USERS\DAVE\DESKTOP\TIS\AGIL\main.py
+        p.data(a.data['frequency'], a.data['Z'])
+        p.fit()
+***** C:\USERS\DAVE\DESKTOP\TIS\AGILGNG\MAIN.PY
+        p.data(a.data['frequency'], a.data['Z'])
+        #print a.data['frequency']
+        p.fit()
+*****
+
+***** C:\USERS\DAVE\DESKTOP\TIS\AGIL\main.py
+        print str(p.fResonanceFit) + '\t' + str(p.R1) + '\t' + str(p.C0) + '\t' + str(p.C1) + '\t' + str(p.L1)
+        if saveParamsFile:
+***** C:\USERS\DAVE\DESKTOP\TIS\AGILGNG\MAIN.PY
+        print str(p.fResonanceFit) + '\t' + str(p.R1) + '\t' + str(p.C0) + '\t' + str(p.C1) + '\t' + str(p.L1)
+        #print '%+.12e' % p.fResonanceFit + '\t' + '%+.12e' % p.R1 + '\t' + '%+.12e' % p.C0 + '\t' + '%+.12e' % p.C1 + '\t' + '
+%+.12e' % p.L1
+        if saveParamsFile:
+*****
+
