@@ -211,8 +211,8 @@ if __name__ == '__main__':
 
     a = Agilent()
 
-    a.set_frequency(span = '%f' % 100000000)
-    a.set_frequency(center = '%f' % 700000000)
+    a.set_frequency(span = '%f' % 100000000)#40000
+    a.set_frequency(center = '%f' % 700000000)#7981000
 
     a.measure()
     print a.read_err()
