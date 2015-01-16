@@ -4,32 +4,31 @@
 import socket
 
 
-class AgilentSCPI:
+class agilent_SCPI :
         
-    _host_ip = None
-    _scpi_port = None
-    _connection = None
+    host_ip = None
+    scpi_port = None
+    connection = None
 
-    def __init__(self):
-        self._host_ip = '192.168.1.102'
-        self._scpi_port = 5025
+    def __init__(self) :
+        self.host_ip = '192.168.1.102'
+        self.scpi_port = 5025
         
-        self._connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self._connection.connect((self._host_ip, self._scpi_port))
-        #self._connection.setblocking(0)
-        #self._connection.settimeout(0.3)
+        self.connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.connection.connect((self.host_ip, self.scpi_port))
+        #self.connection.setblocking(0)
+        #self.connection.settimeout(0.3)
 
 
-    def send_cmd(self, command):
+    def sendCmd(self, command) :
         #print 'cmd> ' + command
-        self._connection.sendall(command + '\n')
+        self.connection.sendall(command + '\n')
 
 
-    def read_data(self):
+    def readData(self) :
         data = ''
         while 1:
-            buf = self._connection.recv(1024)
-            #print 'buf> "' + buf + '"'
+            buf = self.connection.recv(1024)
             data += buf
             if len(buf) > 1:
                 if buf[-1] == '\n':
@@ -41,31 +40,26 @@ class AgilentSCPI:
         return data
 
 
-    def read_err(self):
-        self.send_cmd(':syst:err?')
-        return self.read_data()
+    def readErr(self) :
+        self.connection.sendall(':syst:err?')
+        return self.readData()
 
 
-    def __del__(self):
-        self._connection.close()
+    def __del__(self) :
+        self.connection.close()
 
+
+###############################################################################
 
 
 if __name__ == '__main__':
 
-    a = AgilentSCPI()
-    
-    a.send_cmd(':syst:pres')
-    
-    a.send_cmd('*idn?')
-    print a.read_data()
-    
-    a.send_cmd(':sens1:swe:poin 1601; *wai')
-    
-    a.send_cmd(':sens1:swe:poin?')
-    print a.read_data()
-    
-    print a.read_err()
-    
+    a = agilent_SCPI()
+    a.send_cmd(':syst:pres') # ISVOSA
+    a.send_cmd('*idn?')  # ISVOSA
+    a.sendCmd(':sens1:swe:poin 1601; *wai')
+    a.sendCmd(':sens1:swe:poin?')
+    print a.readData()
+    print a.read_err() # ISVOSA
     del a
 

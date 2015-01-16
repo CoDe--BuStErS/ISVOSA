@@ -24,55 +24,49 @@ def main(args) :
         saveParamsFile = args[1]
         saveDataFile = args[2]
 
-    a = agilent.Agilent()
+    a = agilent.agilent()
     p = rlcparams.RLCparams()
     
-    a.set_frequency(center = '8000000', span = '500000')
+    a.setFrequency(center = '8000000', span = '500000')
     a.measure()
-    a.plot_data()
-    #a.save_data('x.dat')
-    #raw_input('Press enter')
-
+    a.plotData()
+    #a.saveData('x.dat')
 
     m = max(a.data['admitance'])
     maxIndex = a.data['admitance'].index(m)
-    a.set_frequency(center = '%f' % a.data['frequency'][maxIndex])
+    a.setFrequency(center = '%f' % a.data['frequency'][maxIndex])
 
-    #a.set_frequency(span = '1000000')
-    a.set_frequency(span = '2000000')
+    a.setFrequency(span = '2000000')
 
     a.measure()
-    a.plot_data()
-    #a.save_data('x.dat')
-    #raw_input('Press enter')
+    a.plotData()
+    #a.saveData('x.dat')
 
     m = max(a.data['admitance'])
     maxIndex = a.data['admitance'].index(m)
-    a.set_frequency(center = '%f' % a.data['frequency'][maxIndex])
+    a.setFrequency(center = '%f' % a.data['frequency'][maxIndex])
 
-    a.set_frequency(span = '40000')
+    a.setFrequency(span = '40000')
+    #a.setFrequency(span = '25 KHz')
+    #a.setFrequency(span = '10 KHz')
 
 #    timeStart = time.time()
 
 
     print 'f\t\tR1\t\tC0\t\t\tC1\t\t\tL1'
-    #print 'f\t\t\tR1\t\t\tC0\t\t\tC1\t\t\tL1'
     print 100 * '-'
-    #print 120 * '-'
 
     while 1 :
         a.measure()
-        #a.plot_data() # plot spectrum
+        #a.plotData() # plot spectrum
         if saveDataFile:
-            a.save_data(saveDataFile)
+            a.saveData(saveDataFile)
 
         p.data(a.data['frequency'], a.data['Z'])
-        #print a.data['frequency']
         p.fit()
         #p.plot() # plot fit
 
         print str(p.fResonanceFit) + '\t' + str(p.R1) + '\t' + str(p.C0) + '\t' + str(p.C1) + '\t' + str(p.L1)
-        #print '%+.12e' % p.fResonanceFit + '\t' + '%+.12e' % p.R1 + '\t' + '%+.12e' % p.C0 + '\t' + '%+.12e' % p.C1 + '\t' + '%+.12e' % p.L1
         if saveParamsFile:
             p.saveParams(saveParamsFile)
             #p.plotParams(saveParamsFile)
