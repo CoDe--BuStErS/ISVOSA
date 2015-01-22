@@ -4,31 +4,32 @@
 import socket
 
 
-class agilent_SCPI :
+class AgilentSCPI:
+
+    _host_ip = None
+    _scpi_port = None
+    _connection = None
+
+    def __init__(self):
+        self._host_ip = '192.168.1.102'
+        self._scpi_port = 5025 #23
         
-    host_ip = None
-    scpi_port = None
-    connection = None
-
-    def __init__(self) :
-        self.host_ip = '192.168.1.102'
-        self.scpi_port = 5025
-        
-        self.connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.connection.connect((self.host_ip, self.scpi_port))
-        #self.connection.setblocking(0)
-        #self.connection.settimeout(0.3)
+        self._connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self._connection.connect((self._host_ip, self._scpi_port))
+        #self._connection.setblocking(0)
+        #self._connection.settimeout(0.3)
 
 
-    def sendCmd(self, command) :
+    def send_cmd(self, command):
         #print 'cmd> ' + command
-        self.connection.sendall(command + '\n')
+        self._connection.sendall(command + '\n')
 
 
-    def readData(self) :
+    def read_data(self):
         data = ''
         while 1:
-            buf = self.connection.recv(1024)
+            buf = self._connection.recv(1024)
+            #print 'buf> "' + buf + '"'
             data += buf
             if len(buf) > 1:
                 if buf[-1] == '\n':
@@ -39,28 +40,10 @@ class agilent_SCPI :
         #print 'dat> ' + data
         return data
 
-
-    def readErr(self) :
-        self.connection.sendall(':syst:err?')
-        return self.readData()
-
-
-    def __del__(self) :
-        self.connection.close()
+    def read_err(self):
+        self.send_cmd(':syst:err?')
+        return self.read_data()
 
 
-###############################################################################
-
-
-if __name__ == '__main__':
-
-    a = agilent_SCPI()
-    a.send_cmd(':syst:pres') # ISVOSA
-    a.send_cmd('*idn?')  # ISVOSA
-    a.sendCmd(':sens1:swe:poin 1601; *wai')
-    a.sendCmd(':sens1:swe:poin?')
-    print a.readData()
-    print a.read_err() # ISVOSA
-    del a
-
-
+    def __del__(self):
+        self._connection.close()
