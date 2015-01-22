@@ -23,20 +23,20 @@ def main(args) :
     if len(args) == 3:
         saveParamsFile = args[1]
         saveDataFile = args[2]
-
+         
     a = agilent.agilent()
-    p = rlcparams.RLCparams()
-    
-    a.setFrequency(center = '8 MHz', span = '3 MHz')
+    p = rlcparams.RLCparams()     
+
+    a.setFrequency(center = '8000000', span = '500000')
     a.measure()
     a.plotData()
     #a.saveData('x.dat')
 
     m = max(a.data['admitance'])
     maxIndex = a.data['admitance'].index(m)
-    a.setFrequency(center = '%f Hz' % a.data['frequency'][maxIndex])
+    a.setFrequency(center = '%f' % a.data['frequency'][maxIndex])
 
-    a.setFrequency(span = '1 MHz')
+    a.setFrequency(span = '2000000')
 
     a.measure()
     a.plotData()
@@ -44,9 +44,9 @@ def main(args) :
 
     m = max(a.data['admitance'])
     maxIndex = a.data['admitance'].index(m)
-    a.setFrequency(center = '%f Hz' % a.data['frequency'][maxIndex])
+    a.setFrequency(center = '%f' % a.data['frequency'][maxIndex])
 
-    a.setFrequency(span = '40 KHz')
+    a.setFrequency(span = '40000')
     #a.setFrequency(span = '25 KHz')
     #a.setFrequency(span = '10 KHz')
 
@@ -54,7 +54,7 @@ def main(args) :
 
 
     print 'f\t\tR1\t\tC0\t\t\tC1\t\t\tL1'
-    print 90 * '-'
+    print 100 * '-'
 
     while 1 :
         a.measure()
@@ -76,8 +76,7 @@ def main(args) :
         #print 'C0 =', p.C0
         #print 'C1 =', p.C1
         #print 'L1 =', p.L1
-        #print 'Fres =', p.fResonance
-
+        #print 'Fres =',
 
     del a
 
