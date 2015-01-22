@@ -5,7 +5,7 @@ import agilent_SCPI
 import string
 import math
 import Gnuplot
-#, Numeric
+
 
 
 class agilent (agilent_SCPI.agilent_SCPI) :
@@ -24,23 +24,36 @@ class agilent (agilent_SCPI.agilent_SCPI) :
         self.data['phase'] = []
 
         #self.sendCmd('disp:form:expand on')
-        self.sendCmd('calc1:form smit')
-        self.sendCmd('init1:cont off')
-        self.sendCmd('sens1:swe:poin 1601; *wai')
+        self.sendCmd(':sys:pres') # ISVOSA
+        self.sendCmd(':calc1:form smit')
+        self.sendCmd(':init1:cont off')
+
+        #self.sendCmd(':init1:cont on') # ISVOSA
+        #self.sendCmd(':abor')  # ISVOSA
+        
+        self.sendCmd(':sens1:swe:poin 1601; *wai')
+        #self.sendCmd(':sens1:swe:poin 1601') # ISVOSA
+        
         #self.sendCmd('sens1:swe:poin 21; *wai')
         #self.sendCmd('sens1:swe:poin?')
         #points = int( self.readData() )
-        self.sendCmd('form:data asc,12')
+        #self.sendCmd('form:data asc,12')
+        self.sendCmd(':form:data asc')
 
-        self.sendCmd('sens1:freq:star?')
+        self.sendCmd('*wai') # ISVOSA
+           
+        self.sendCmd(':sens1:freq:star?')
         self.frequency['start'] = float(self.readData())
-        self.sendCmd('sens1:freq:stop?')
+        self.sendCmd(':sens1:freq:stop?')
         self.frequency['stop'] = float(self.readData())
+
+        
 
         self.gnuplot = Gnuplot.Gnuplot()
         self.gnuplot.clear()
         #self.gnuplot('set data style lines')
         self.gnuplot('set style data lines')
+        #self.gnuplot('set data style linespoints') # ISVOSA
         self.gnuplot('set xtics border mirror norotate')
         self.gnuplot('set ytics border mirror norotate')
         self.gnuplot('set ztics border nomirror norotate')
@@ -60,18 +73,20 @@ class agilent (agilent_SCPI.agilent_SCPI) :
 
     def setFrequency(self, start = '', stop = '', center = '', span = '') :
         if start :
-            self.sendCmd('sens1:freq:star ' + start)
+            self.sendCmd(':sens1:freq:star ' + start)
         if stop :
-            self.sendCmd('sens1:freq:stop ' + stop)
+            self.sendCmd(':sens1:freq:stop ' + stop)
         if center :
-            self.sendCmd('sens1:freq:cent ' + center)
+            self.sendCmd(':sens1:freq:cent ' + center)
         if span :
-            self.sendCmd('sens1:freq:span ' + span)
+            self.sendCmd(':sens1:freq:span ' + span)
+
+        self.sendCmd('*wai')
         
-        self.sendCmd('sens1:freq:start?')
+        self.sendCmd(':sens1:freq:start?')
         self.frequency['start'] = float(self.readData())
         
-        self.sendCmd('sens1:freq:stop?')
+        self.sendCmd(':sens1:freq:stop?')
         self.frequency['stop'] = float(self.readData())
 
 
@@ -83,19 +98,24 @@ class agilent (agilent_SCPI.agilent_SCPI) :
         self.data['admitance'] = []
         self.data['phase'] = []
 
-        self.sendCmd('init1:cont off')
-        
-        self.sendCmd('init1; *wai')
-        self.sendCmd('trac? ch1fdata')
+        self.sendCmd(':init1:cont off')
+
+        # self.sendCmd(':init1')
+        self.sendCmd('*wai')
+        #self.sendCmd(':trac? ch1fdata') # ISVOSA
+
+        self.sendCmd(':calc1:data:fdat?')
         data = self.readData()
         
-        self.sendCmd('sens1:freq:star?')
+        self.sendCmd(':sens1:freq:star?')
         self.frequency['start'] = float(self.readData())
         
-        self.sendCmd('sens1:freq:stop?')
+        self.sendCmd(':sens1:freq:stop?')
         self.frequency['stop'] = float(self.readData())
 
-        self.sendCmd('init1:cont on')
+        self.sendCmd('*wai')
+
+        self.sendCmd(':init1:cont on')
 
         data = string.split(data, ',')
 
@@ -110,12 +130,15 @@ class agilent (agilent_SCPI.agilent_SCPI) :
             frequency += step
 
         for g in  gamma :
-            z = 50 * ( (1 + g) / (1 - g) )
+            #z = 50 * ( (1 + g) / (1 - g) ) # ISVOSA
+            z = g
             self.data['Z'].append(z)
             self.data['impedance'].append(abs(z))
             y = 1 / z
             self.data['admitance'].append(abs(y))
             self.data['phase'].append(math.atan2(y.imag, y.real))
+
+        return self.data
 
 
     def plotData(self) :
@@ -177,8 +200,8 @@ if __name__ == '__main__':
 
     a = agilent()
     
-    a.setFrequency(span = '100 MHz')
-    a.setFrequency(center = '%f Hz' % 700000000)
+    a.setFrequency(span = '%f' % 100000000)
+    a.setFrequency(center = '%f' % 700000000)
     
     a.measure()
     a.saveData('x.dat')
@@ -192,7 +215,7 @@ if __name__ == '__main__':
     print max
     maxIndex = a.data['admitance'].index(max)
     print maxIndex, a.data['frequency'][maxIndex]
-    a.setFrequency(center = '%f Hz' % a.data['frequency'][maxIndex])
+    a.setFrequency(center = '%f' % a.data['frequency'][maxIndex]) # ISVOSA
     print a.readErr()
     
     a.measure()
