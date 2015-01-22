@@ -11,7 +11,7 @@ class agilent_SCPI :
     connection = None
 
     def __init__(self) :
-        self.host_ip = '192.168.1.2'
+        self.host_ip = '192.168.1.102'
         self.scpi_port = 5025
         
         self.connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -30,7 +30,10 @@ class agilent_SCPI :
         while 1:
             buf = self.connection.recv(1024)
             data += buf
-            if buf[-1] == '\n'  :
+            if len(buf) > 1:
+                if buf[-1] == '\n':
+                    break
+            else:
                 break
         data = data[:-1]
         #print 'dat> ' + data
@@ -38,7 +41,7 @@ class agilent_SCPI :
 
 
     def readErr(self) :
-        self.connection.sendall('syst:err?\n')
+        self.connection.sendall(':syst:err?')
         return self.readData()
 
 
@@ -52,8 +55,12 @@ class agilent_SCPI :
 if __name__ == '__main__':
 
     a = agilent_SCPI()
-    a.sendCmd('sens1:swe:poin 1601; *wai')
-    a.sendCmd('sens1:swe:poin?')
+    a.send_cmd(':syst:pres') # ISVOSA
+    a.send_cmd('*idn?')  # ISVOSA
+    a.sendCmd(':sens1:swe:poin 1601; *wai')
+    a.sendCmd(':sens1:swe:poin?')
     print a.readData()
+    print a.read_err() # ISVOSA
     del a
+
 
