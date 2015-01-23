@@ -189,7 +189,7 @@ if __name__ == '__main__':
 	#printing to file 
         f = open('dataNEW.txt', 'r+')
         f.write(str(data))
-	f.close()
+        f.close()
 	
 	a.send_cmd(':sens1:freq:star?')
 	#self.frequency['start'] = float(self.read_data())
