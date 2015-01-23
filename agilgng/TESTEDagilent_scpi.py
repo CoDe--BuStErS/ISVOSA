@@ -56,7 +56,7 @@ class AgilentSCPI:
 if __name__ == '__main__':
 
 
-# verzia stareho stroja funkcna
+    # verzia stareho stroja funkcna
 
 
 
@@ -84,32 +84,15 @@ if __name__ == '__main__':
         #self.frequency['stop'] = float(self.readData())
 
         a.send_cmd('init1:cont on')    
-
-
-    #a.send_cmd(':syst:pres')
-    
-    #a.send_cmd('*idn?')
-    #print a.read_data()
-    
-    #a.send_cmd(':sens1:swe:poin 1601; *wai')
-    
-    #a.send_cmd(':sens1:swe:poin?')
-    #print a.read_data()
-    
-    #print a.read_err()
     
         del a
 
-
+    #novy stroj - otestovana verzia + ukladanie vzstupu so suboru
     def novy_stroj():
         a = AgilentSCPI()
 
 	a.send_cmd('*idn?')
 	print a.read_data()
-
-
-
-
 
 	a.send_cmd(':syst:pres')
 	a.send_cmd(':calc1:form smit')
@@ -117,54 +100,20 @@ if __name__ == '__main__':
 	a.send_cmd(':init1:cont on')
 	a.send_cmd(':abor')
 	a.send_cmd(':sens1:swe:poin 1601')
+	
 	#self.send_cmd('sens1:swe:poin 21; *wai')
 	#self.send_cmd('sens1:swe:poin?')
 	#points = int( self.read_data() )
 	#self.send_cmd(':form:data asc,12')
+	
 	a.send_cmd(':form:data asc')
 	a.send_cmd('*wai')
-	
-	#a.send_cmd(':sens1:freq:star?')
-	#a.frequency['start'] = float(a.read_data())
-	#a.send_cmd(':sens1:freq:stop?')
-	#a.frequency['stop'] = float(a.read_data())
-
-
-
-
-
-
-
-
-	#a.send_cmd(':syst:pres')
-	#a.send_cmd(':calc1:form smit')
-	
-
-        #a.send_cmd('init1:cont off')
-        #print 'init1:cont off'
-        
-        #a.send_cmd('init1; *wai')
-        #print 'init1; *wai'
-        #a.send_cmd('trac? ch1fdata')
-        #print 'trac? ch1fdata'
-        #data = a.read_data()
-        #print data
-
-
-
-
-
-
 
 	a.send_cmd(':init1:cont off')
 	#self.send_cmd(':disp:enab off')
 	
 	#self.send_cmd(':init1')#???
 	a.send_cmd('*wai')
-
-
-
-
 
 	a.send_cmd(':sens1:freq:span ' + ('%f' % 40000))
 
@@ -174,14 +123,6 @@ if __name__ == '__main__':
 
 	print 'FREKV'
 
-
-
-
-
-
-
-	#self.send_cmd(':trac? ch1fdata')#???
-	#self.send_cmd(':calc1:freq:data?')
 	a.send_cmd(':calc1:data:fdat?')# TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	#self.send_cmd(':sens1:freq:data?')
 	data = a.read_data()
@@ -201,41 +142,7 @@ if __name__ == '__main__':
 	
 	a.send_cmd('*wai')
 
-
-
-	#self.send_cmd(':disp:upd')
-	#self.send_cmd(':disp:enab on')
 	a.send_cmd(':init1:cont on')
-
-
-
-
-
-
-
-
-
-        
-        #self.sendCmd('sens1:freq:star?')
-        #self.frequency['start'] = float(self.readData())
-        
-        #self.sendCmd('sens1:freq:stop?')
-        #self.frequency['snovytop'] = float(self.readData())
-
-        #a.send_cmd('init1:cont on')    
-
-
-        
-    
-    #a.send_cmd('*idn?')
-    #print a.read_data()
-    
-    #a.send_cmd(':sens1:swe:poin 1601; *wai')
-    
-    #a.send_cmd(':sens1:swe:poin?')
-    #print a.read_data()
-    
-    #print a.read_err()
     
         del a
 
