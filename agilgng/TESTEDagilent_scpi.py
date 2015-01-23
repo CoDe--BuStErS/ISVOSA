@@ -73,7 +73,7 @@ if __name__ == '__main__':
         data = a.read_data()
         print data
         #printing to file 
-        f = open('dataOLD.txt', 'r+')
+        f = open('dataOLD.txt', 'w')
         f.write(str(data))
         f.close()
         
@@ -187,7 +187,7 @@ if __name__ == '__main__':
 	data = a.read_data()
 	print data
 	#printing to file 
-        f = open('dataNEW.txt', 'r+')
+        f = open('dataNEW.txt', 'w')
         f.write(str(data))
         f.close()
 	
