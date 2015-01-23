@@ -72,6 +72,10 @@ if __name__ == '__main__':
         print 'trac? ch1fdata'
         data = a.read_data()
         print data
+        #printing to file 
+        f = open('dataOLD.txt', 'r+')
+        f.write(str(data))
+        f.close()
         
         #self.sendCmd('sens1:freq:star?')
         #self.frequency['start'] = float(self.readData())
@@ -182,6 +186,10 @@ if __name__ == '__main__':
 	#self.send_cmd(':sens1:freq:data?')
 	data = a.read_data()
 	print data
+	#printing to file 
+        f = open('dataNEW.txt', 'r+')
+        f.write(str(data))
+	f.close()
 	
 	a.send_cmd(':sens1:freq:star?')
 	#self.frequency['start'] = float(self.read_data())
