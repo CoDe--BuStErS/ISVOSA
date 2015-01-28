@@ -130,8 +130,8 @@ class agilent (agilent_SCPI.agilent_SCPI) :
             frequency += step
 
         for g in  gamma :
-            #z = 50 * ( (1 + g) / (1 - g) ) # ISVOSA
-            z = g
+            z = 50 * ( (1 + g) / (1 - g) )
+            #z = g # ISVOSA
             self.data['Z'].append(z)
             self.data['impedance'].append(abs(z))
             y = 1 / z
