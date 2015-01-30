@@ -1,7 +1,8 @@
 #! /usr/bin/python
 
 import math, time, string
-import Numeric
+#import Numeric   ISVOSA - OLD
+import numpy
 import Gnuplot
 
 from Scientific.Functions.LeastSquares import leastSquaresFit
@@ -179,7 +180,8 @@ class RLCparams:
             except ZeroDivisionError:
                 pass
 
-        self.C1 = Numeric.average(C1)
+        #self.C1 = Numeric.average(C1)    ISVOSA - OLD
+        self.C1 = numpy.average(C1)
 
         #Determine L1
         self.L1 = 1.0 / (self.C1 * (w0 ** 2))
@@ -192,7 +194,8 @@ class RLCparams:
         Yr = [x.real for x in self.admitance]
         #self.gnuplot = Gnuplot.Gnuplot()
         #self.gnuplot.clear()
-        self.gnuplot('set data style linespoints')
+        #self.gnuplot('set data style linespoints')    ISVOSA - OLD
+        self.gnuplot('set style data linespoints')
         self.gnuplot('set xtics border mirror norotate')
         self.gnuplot('set ytics border mirror norotate')
         self.gnuplot('set ztics border nomirror norotate')
@@ -237,7 +240,8 @@ class RLCparams:
         """
         f/t, Rm/t
         """
-        self.gnuplot1('set data style linespoints')
+        #self.gnuplot1('set data style linespoints')   ISVOSA - OLD
+        self.gnuplot1('set style data linespoints')
         self.gnuplot1('set xtics border mirror norotate')
         self.gnuplot1('set ytics border mirror norotate')
         self.gnuplot1('set ztics border nomirror norotate')
@@ -258,7 +262,8 @@ class RLCparams:
         self.gnuplot2('set multiplot')
         self.gnuplot2('set size 1,1')
         self.gnuplot2('set origin 0,0')
-        self.gnuplot2('set data style lines')
+        #self.gnuplot2('set data style lines')    ISVOSA - OLD
+        self.gnuplot2('set style data lines')
         self.gnuplot2('set xtics border mirror norotate')
         self.gnuplot2('set ytics border mirror norotate')
         self.gnuplot2('set ztics border nomirror norotate')
@@ -311,7 +316,8 @@ class RLCparams:
         self.gnuplot2('set y2label "phase [rad]"')
         self.gnuplot2('set size 0.5, 0.5')
         self.gnuplot2('set origin 0.5, 0')
-        self.gnuplot2('set data style lines')
+        #self.gnuplot2('set data style lines')    ISVOSA - OLD
+        self.gnuplot2('set style data lines')
         self.gnuplot2.plot(
                 Gnuplot.Data(
                     self.frequency,
@@ -334,7 +340,8 @@ class RLCparams:
         """
         #self.gnuplot = Gnuplot.Gnuplot()
         #self.gnuplot.clear()
-        self.gnuplot('set data style linespoints')
+        #self.gnuplot('set data style linespoints')   ISVOSA - OLD
+        self.gnuplot('set style data linespoints')
         self.gnuplot('set xtics border mirror norotate')
         self.gnuplot('set ytics border mirror norotate')
         self.gnuplot('set ztics border nomirror norotate')
@@ -368,7 +375,8 @@ class RLCparams:
         """
         self.gnuplot = Gnuplot.Gnuplot()
         self.gnuplot.clear()
-        self.gnuplot('set data style linespoints')
+        #self.gnuplot('set data style linespoints')   ISVOSA - OLD
+        self.gnuplot('set style data linespoints')
         self.gnuplot('set xtics border mirror norotate')
         self.gnuplot('set ytics border mirror norotate')
         self.gnuplot('set ztics border nomirror norotate')

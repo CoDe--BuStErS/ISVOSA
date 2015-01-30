@@ -63,7 +63,8 @@ class Agilent (agilent_scpi.AgilentSCPI):
         self.gnuplot = Gnuplot.Gnuplot()
         self.gnuplot.clear()
         #self.gnuplot('set data style lines')
-        self.gnuplot('set data style linespoints')
+        #self.gnuplot('set data style linespoints')    ISVOSA - OLD
+        self.gnuplot('set style data lines')
         self.gnuplot('set xtics border mirror norotate')
         self.gnuplot('set ytics border mirror norotate')
         self.gnuplot('set ztics border nomirror norotate')
@@ -73,7 +74,7 @@ class Agilent (agilent_scpi.AgilentSCPI):
         #self.gnuplot('set ylabel "impedance, Ohm; admittance, Siemens"')
         self.gnuplot('set ylabel "admittance, Siemens"')
         self.gnuplot('set y2label "phase, rad"')
-        self.gnuplot('set title "QCM"')
+        #self.gnuplot('set title "QCM"')   ISVOSA - OLD
 
 
     def __del__(self):
