@@ -108,8 +108,12 @@ class Agilent (agilent_scpi.AgilentSCPI):
         self.data['admitance'] = []
         self.data['phase'] = []
 
+		#self.send_cmd(':CALC1:PAR1:SEL')#Sets trace 1 (:PAR1) to trace 4 (:PAR4)##
+		#of channel 1 (:CALC1) to channel 4 (:CALC4) to the active trace. page 286##
+
         self.send_cmd(':init1:cont off')
         #self.send_cmd(':disp:enab off')
+		#self.sendCmd(':abor')##
         
         #self.send_cmd(':init1')#???
         self.send_cmd('*wai')
