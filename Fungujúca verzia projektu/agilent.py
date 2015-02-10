@@ -41,7 +41,6 @@ class Agilent (agilent_scpi.AgilentSCPI):
         self.data['admitance'] = []
         self.data['phase'] = []
 
-        #self.send_cmd('disp:form:expand on')
         self.send_cmd(':syst:pres')
         self.send_cmd(':calc1:form smit')
         self.send_cmd(':init1:cont on')
@@ -54,6 +53,8 @@ class Agilent (agilent_scpi.AgilentSCPI):
         self.frequency['start'] = float(self.read_data())
         self.send_cmd(':sens1:freq:stop?')
         self.frequency['stop'] = float(self.read_data())
+
+        #self.send_cmd(':SENS:CORR:IMP 0') # Seting IMP
 
         self.gnuplot = Gnuplot.Gnuplot()
         self.gnuplot.clear()
@@ -100,20 +101,25 @@ class Agilent (agilent_scpi.AgilentSCPI):
         self.data['admitance'] = []
         self.data['phase'] = []
 
-        self.send_cmd(':init1:cont off')
-
         self.send_cmd('*wai')
+
+        #TRIGGER Switch - manual
+        self.send_cmd(':TRIG:SOUR MAN')
+        self.send_cmd(':TRIG:SING')
+        self.send_cmd('*wai')
+
         self.send_cmd(':calc1:data:fdat?')
-        #self.send_cmd(':sens1:freq:data?')
+        self.send_cmd('*wai')
         data = self.read_data()
         
         self.send_cmd(':sens1:freq:star?')
         self.frequency['start'] = float(self.read_data())
-
+        
         self.send_cmd(':sens1:freq:stop?')
         self.frequency['stop'] = float(self.read_data())
 
-        self.send_cmd(':init1:cont on')
+        #TRIGGER Switch - internal (default)
+        self.send_cmd(':TRIG:SOUR INT')
 
         self.send_cmd('*wai')
 
@@ -128,7 +134,6 @@ class Agilent (agilent_scpi.AgilentSCPI):
         for i in range(len(gamma)):
             self.data['frequency'].append(frequency)
             frequency += step
-
         for g in gamma:
             z = g
             self.data['Z'].append(z)
@@ -143,12 +148,6 @@ class Agilent (agilent_scpi.AgilentSCPI):
     def plot_data(self):
         self.gnuplot('set xrange [%f:%f]' % (self.frequency['start']-100, self.frequency['stop']+100))
         self.gnuplot.plot(
-            #Gnuplot.Data(    self.data['frequency'],
-            #        self.data['impedance'],
-            #        title='impedance',
-            #        axes='x1y1',
-            #        inline=1
-            #        ),
             Gnuplot.Data(    self.data['frequency'],
                     self.data['admitance'],
                     title='admitance',

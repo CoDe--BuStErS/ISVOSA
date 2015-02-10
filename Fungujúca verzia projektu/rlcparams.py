@@ -326,6 +326,7 @@ class RLCparams:
                     axes = 'x1y2',
                     inline = 1)
                 )
+#        self.gnuplot2.replot()
 
     def plot_re(self):
         """

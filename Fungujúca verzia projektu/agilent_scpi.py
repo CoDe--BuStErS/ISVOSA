@@ -55,11 +55,12 @@ if __name__ == '__main__':
 	a.send_cmd(':calc1:form smit')
 	a.send_cmd(':abor')
 	a.send_cmd(':sens1:swe:poin 1601')
-	
+
 	a.send_cmd(':form:data asc')
 	a.send_cmd('*wai')
 
 	a.send_cmd(':init1:cont off')
+
 	a.send_cmd('*wai')
 
 	a.send_cmd(':sens1:freq:span ' + ('%f' % 40000))
@@ -74,14 +75,15 @@ if __name__ == '__main__':
 	a.send_cmd(':calc1:data:fdat?')
 	data = a.read_data()
 	print data
+
     a.send_cmd(':calc1:data:fdat?')
 	data = a.read_data()
 	print data
+
 	a.send_cmd(':sens1:freq:star?')
 	print 'START',a.read_data()
-
+	
 	a.send_cmd(':sens1:freq:stop?')
-
 	print 'STOP',a.read_data()
 	
 	a.send_cmd('*wai')

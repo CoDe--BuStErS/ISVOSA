@@ -29,8 +29,12 @@ def main(args) :
     
     a.set_frequency(center = '8000000', span = '2000000')
     a.measure()
-    a.plot_data()
 
+    a.plot_data()
+    #a.save_data('x.dat')
+    #raw_input('Press enter')
+
+    #print 'ADMITANCIA', a.data['admitance']
     m = max(a.data['admitance'])
     maxIndex = a.data['admitance'].index(m)
     a.set_frequency(center = '%f' % a.data['frequency'][maxIndex])
@@ -39,13 +43,16 @@ def main(args) :
 
     a.measure()
     a.plot_data()
+    #a.save_data('x.dat')
+    #raw_input('Press enter')
 
     m = max(a.data['admitance'])
     maxIndex = a.data['admitance'].index(m)
     a.set_frequency(center = '%f' % a.data['frequency'][maxIndex])
 
     a.set_frequency(span = '40000')
-
+    a.measure()
+    a.plot_data()
 
 
     print 'f\t\tR1\t\tC0\t\t\tC1\t\t\tL1'
@@ -53,7 +60,7 @@ def main(args) :
 
     while 1 :
         a.measure()
-
+        #a.plot_data() # plot spectrum
         if saveDataFile:
             a.save_data(saveDataFile)
 
@@ -73,7 +80,7 @@ def main(args) :
         #print 'C1 =', p.C1
         #print 'L1 =', p.L1
         #print 'Fres =', p.fResonance
-
+        time.sleep(1)
 
     del a
 
