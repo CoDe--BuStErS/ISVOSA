@@ -1,7 +1,6 @@
 #! /usr/bin/python
 
 import math, time, string
-#import Numeric   ISVOSA - OLD
 import numpy
 import Gnuplot
 
@@ -240,7 +239,6 @@ class RLCparams:
         """
         f/t, Rm/t
         """
-        #self.gnuplot1('set data style linespoints')   ISVOSA - OLD
         self.gnuplot1('set style data linespoints')
         self.gnuplot1('set xtics border mirror norotate')
         self.gnuplot1('set ytics border mirror norotate')
@@ -262,7 +260,6 @@ class RLCparams:
         self.gnuplot2('set multiplot')
         self.gnuplot2('set size 1,1')
         self.gnuplot2('set origin 0,0')
-        #self.gnuplot2('set data style lines')    ISVOSA - OLD
         self.gnuplot2('set style data lines')
         self.gnuplot2('set xtics border mirror norotate')
         self.gnuplot2('set ytics border mirror norotate')
@@ -316,7 +313,6 @@ class RLCparams:
         self.gnuplot2('set y2label "phase [rad]"')
         self.gnuplot2('set size 0.5, 0.5')
         self.gnuplot2('set origin 0.5, 0')
-        #self.gnuplot2('set data style lines')    ISVOSA - OLD
         self.gnuplot2('set style data lines')
         self.gnuplot2.plot(
                 Gnuplot.Data(
@@ -332,7 +328,6 @@ class RLCparams:
                     axes = 'x1y2',
                     inline = 1)
                 )
-#        self.gnuplot2.replot()
 
     def plot_re(self):
         """
@@ -340,7 +335,6 @@ class RLCparams:
         """
         #self.gnuplot = Gnuplot.Gnuplot()
         #self.gnuplot.clear()
-        #self.gnuplot('set data style linespoints')   ISVOSA - OLD
         self.gnuplot('set style data linespoints')
         self.gnuplot('set xtics border mirror norotate')
         self.gnuplot('set ytics border mirror norotate')
@@ -375,7 +369,6 @@ class RLCparams:
         """
         self.gnuplot = Gnuplot.Gnuplot()
         self.gnuplot.clear()
-        #self.gnuplot('set data style linespoints')   ISVOSA - OLD
         self.gnuplot('set style data linespoints')
         self.gnuplot('set xtics border mirror norotate')
         self.gnuplot('set ytics border mirror norotate')

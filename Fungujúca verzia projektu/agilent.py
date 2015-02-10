@@ -44,14 +44,9 @@ class Agilent (agilent_scpi.AgilentSCPI):
         #self.send_cmd('disp:form:expand on')
         self.send_cmd(':syst:pres')
         self.send_cmd(':calc1:form smit')
-        #self.send_cmd(':init1:cont off')
         self.send_cmd(':init1:cont on')
         self.send_cmd(':abor')
         self.send_cmd(':sens1:swe:poin 1601')
-        #self.send_cmd('sens1:swe:poin 21; *wai')
-        #self.send_cmd('sens1:swe:poin?')
-        #points = int( self.read_data() )
-        #self.send_cmd(':form:data asc,12')
         self.send_cmd(':form:data asc')
         self.send_cmd('*wai')
 
@@ -62,8 +57,6 @@ class Agilent (agilent_scpi.AgilentSCPI):
 
         self.gnuplot = Gnuplot.Gnuplot()
         self.gnuplot.clear()
-        #self.gnuplot('set data style lines')
-        #self.gnuplot('set data style linespoints')    ISVOSA - OLD
         self.gnuplot('set style data lines')
         self.gnuplot('set xtics border mirror norotate')
         self.gnuplot('set ytics border mirror norotate')
@@ -74,7 +67,6 @@ class Agilent (agilent_scpi.AgilentSCPI):
         #self.gnuplot('set ylabel "impedance, Ohm; admittance, Siemens"')
         self.gnuplot('set ylabel "admittance, Siemens"')
         self.gnuplot('set y2label "phase, rad"')
-        #self.gnuplot('set title "QCM"')   ISVOSA - OLD
 
 
     def __del__(self):
@@ -108,39 +100,24 @@ class Agilent (agilent_scpi.AgilentSCPI):
         self.data['admitance'] = []
         self.data['phase'] = []
 
-	#self.send_cmd(':CALC1:PAR1:SEL')#Sets trace 1 (:PAR1) to trace 4 (:PAR4)##
-		#of channel 1 (:CALC1) to channel 4 (:CALC4) to the active trace. page 286##
-
         self.send_cmd(':init1:cont off')
-        #self.send_cmd(':disp:enab off')
-	#self.sendCmd(':abor')##
-        
-        #self.send_cmd(':init1')#???
+
         self.send_cmd('*wai')
-        #self.send_cmd(':trac? ch1fdata')#???
-        #self.send_cmd(':calc1:freq:data?')
-        self.send_cmd(':calc1:data:fdat?')# TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        self.send_cmd(':calc1:data:fdat?')
         #self.send_cmd(':sens1:freq:data?')
         data = self.read_data()
-        #print data
         
         self.send_cmd(':sens1:freq:star?')
         self.frequency['start'] = float(self.read_data())
-        print self.frequency['start']
-        
+
         self.send_cmd(':sens1:freq:stop?')
         self.frequency['stop'] = float(self.read_data())
-        print self.frequency['stop']
 
-        #self.send_cmd('*wai')
-        #self.send_cmd(':disp:upd')
-        #self.send_cmd(':disp:enab on')
         self.send_cmd(':init1:cont on')
 
         self.send_cmd('*wai')
 
         data = string.split(data, ',')
-        #print len(data)
         gamma = []    # agilent device output data
         for i in range(0, len(data), 2):
             #print data[i], float(data[i]), data[i+1], float(data[i+1])
@@ -153,7 +130,6 @@ class Agilent (agilent_scpi.AgilentSCPI):
             frequency += step
 
         for g in gamma:
-            #z = 50 * ( (1 + g) / (1 - g) ) # old aggilent devices
             z = g
             self.data['Z'].append(z)
             self.data['impedance'].append(abs(z))
