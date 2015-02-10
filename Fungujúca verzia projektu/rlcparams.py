@@ -179,7 +179,6 @@ class RLCparams:
             except ZeroDivisionError:
                 pass
 
-        #self.C1 = Numeric.average(C1)    ISVOSA - OLD
         self.C1 = numpy.average(C1)
 
         #Determine L1
@@ -193,7 +192,6 @@ class RLCparams:
         Yr = [x.real for x in self.admitance]
         #self.gnuplot = Gnuplot.Gnuplot()
         #self.gnuplot.clear()
-        #self.gnuplot('set data style linespoints')    ISVOSA - OLD
         self.gnuplot('set style data linespoints')
         self.gnuplot('set xtics border mirror norotate')
         self.gnuplot('set ytics border mirror norotate')

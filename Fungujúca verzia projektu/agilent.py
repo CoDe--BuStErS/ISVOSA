@@ -136,7 +136,7 @@ class Agilent (agilent_scpi.AgilentSCPI):
             y = 1 / z
             self.data['admitance'].append(abs(y))
             self.data['phase'].append(math.atan2(y.imag, y.real))
-	print self.data
+
         return self.data
 
 
