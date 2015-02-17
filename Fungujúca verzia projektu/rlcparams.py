@@ -190,8 +190,6 @@ class RLCparams:
         Plot cela krivka + vyrez
         """
         Yr = [x.real for x in self.admitance]
-        #self.gnuplot = Gnuplot.Gnuplot()
-        #self.gnuplot.clear()
         self.gnuplot('set style data linespoints')
         self.gnuplot('set xtics border mirror norotate')
         self.gnuplot('set ytics border mirror norotate')
@@ -332,8 +330,6 @@ class RLCparams:
         """
         Plot real + fit
         """
-        #self.gnuplot = Gnuplot.Gnuplot()
-        #self.gnuplot.clear()
         self.gnuplot('set style data linespoints')
         self.gnuplot('set xtics border mirror norotate')
         self.gnuplot('set ytics border mirror norotate')

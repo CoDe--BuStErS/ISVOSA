@@ -103,7 +103,7 @@ class Agilent (agilent_scpi.AgilentSCPI):
 
         self.send_cmd('*wai')
 
-        #TRIGGER Switch - manual
+        #TRIGGER set to MANual
         self.send_cmd(':TRIG:SOUR MAN')
         self.send_cmd(':TRIG:SING')
         self.send_cmd('*wai')
@@ -111,14 +111,14 @@ class Agilent (agilent_scpi.AgilentSCPI):
         self.send_cmd(':calc1:data:fdat?')
         self.send_cmd('*wai')
         data = self.read_data()
-        
+
         self.send_cmd(':sens1:freq:star?')
         self.frequency['start'] = float(self.read_data())
         
         self.send_cmd(':sens1:freq:stop?')
         self.frequency['stop'] = float(self.read_data())
 
-        #TRIGGER Switch - internal (default)
+        #TRIGER set to INTernal (default)
         self.send_cmd(':TRIG:SOUR INT')
 
         self.send_cmd('*wai')
@@ -141,7 +141,6 @@ class Agilent (agilent_scpi.AgilentSCPI):
             y = 1 / z
             self.data['admitance'].append(abs(y))
             self.data['phase'].append(math.atan2(y.imag, y.real))
-
         return self.data
 
 

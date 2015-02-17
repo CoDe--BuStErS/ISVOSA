@@ -29,7 +29,7 @@ def main(args) :
     
     a.set_frequency(center = '8000000', span = '2000000')
     a.measure()
-
+    #return
     a.plot_data()
     #a.save_data('x.dat')
     #raw_input('Press enter')

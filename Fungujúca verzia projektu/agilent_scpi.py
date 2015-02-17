@@ -65,7 +65,7 @@ if __name__ == '__main__':
 
 	a.send_cmd(':sens1:freq:span ' + ('%f' % 40000))
 
-	a.send_cmd(':sens1:freq:cent ' + ('%f' % 7981000))
+	a.send_cmd(':sens1:freq:cent ' + ('%f' % 7981000))#right frequency
 
 	a.send_cmd('*wai')
 
@@ -76,10 +76,15 @@ if __name__ == '__main__':
 	data = a.read_data()
 	print data
 
-    a.send_cmd(':calc1:data:fdat?')
+        a.send_cmd(':calc1:data:fdat?')
 	data = a.read_data()
 	print data
 
+	#printing to file 
+        #f = open('dataNEW.txt', 'w')
+        #f.write(str(data))
+        #f.close()
+	
 	a.send_cmd(':sens1:freq:star?')
 	print 'START',a.read_data()
 	
